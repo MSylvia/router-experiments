@@ -11,6 +11,17 @@ class Foo extends React.Component<any, any> {
         router: React.PropTypes.func
     }
 
+    componentDidMount = () => {
+        var params = this.props.params;
+        var query  = this.props.query;
+
+        console.log("MOUNT ", this.props, params, query);
+    }
+
+    componentWillReceiveProps = (nextProps) => {
+        console.log("NEXT  ", nextProps, nextProps.params, nextProps.query);
+    }
+
     render = () => {
 
         var router = this.context.router;
@@ -22,6 +33,8 @@ class Foo extends React.Component<any, any> {
 
         var params = this.props.params;
         var query  = this.props.query;
+
+        console.log("RENDER", this.props, params, query);
 
         if (_.has(query, 'a') === false) {
             router.transitionTo("/foo", {}, _.extend({}, query, { a: 1 }));
